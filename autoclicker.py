@@ -2,21 +2,29 @@ import keyboard as key
 from pynput.mouse import Button, Controller
 import time
 
+def clicks(parametro):
+    print("programa ativo, aperte f8 pra comecar a clicar/parar e 8 pra sair do programa")
+    while True:
+        global clicking
+        if key.is_pressed("f8"):
+            clicking = not clicking
+            print("alternando entre click / not click")
+            time.sleep(0.3)
+
+        if key.is_pressed("8"):
+            print("fechando programa")
+            break
+            
+
+        if clicking == True:
+            mouse.press(Button.left)
+            mouse.release(Button.left)
+            time.sleep(delay_entre_clicks)
+
 mouse = Controller()
 clicking = False
 
-while True:
-    if key.is_pressed("f8"):
-        clicking = True
-        print("Clicking iniciado")
-        time.sleep(0.3)
+delay_entre_clicks = float(input("qual o delay entre clicks desejado? (o menor e 0.1)\n"))
 
-    if key.is_pressed("8"):
-        clicking = False
-        print("Clicking parado")
-        time.sleep(0.3)
 
-    if clicking:
-        mouse.press(Button.left)
-        mouse.release(Button.left)
-        time.sleep(0.1)
+clicks(delay_entre_clicks)
